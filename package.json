@@ -1,0 +1,14 @@
+{
+  "name": "movie-characters",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^16.4.5",
+    "knex": "^3.0.1",
+    "openai": "^4.28.4",
+    "sqlite-vss": "^0.1.2",
+    "sqlite3": "^5.1.6"
+  }
+}
