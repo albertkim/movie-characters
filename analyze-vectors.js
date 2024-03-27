@@ -25,10 +25,12 @@
 
       console.log('Got embeddings for:', character.character_name)
 
+      // Store embeddings in characters db for lookup reference
       await knex('characters').update({
         character_journey_vector: buffer
       }).where('id', character.id)
 
+      // Also store them in the vss virtual table for searching
       await knex('vss_characters_2').insert({
         rowid: character.id,
         character_journey_vector: embeddings
