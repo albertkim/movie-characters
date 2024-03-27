@@ -1,7 +1,6 @@
 (async () => {
 
   const openai = require('./openai')
-
   const knex = require('./knexfile')
 
   const movies = await knex('movies').select()

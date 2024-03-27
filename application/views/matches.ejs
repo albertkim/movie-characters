@@ -15,9 +15,10 @@
   <br />
   <% similarCharacters.forEach(function(similarCharacter) { %>
     <div>
-      <a href="/movies/<%= movie.movie_id %>"><%= similarCharacter.character_name %> (from <%= similarCharacter.movie_title %>)</a>
+      <a href="/movies/<%= similarCharacter.movie_id %>"><%= similarCharacter.character_name %> (from <%= similarCharacter.movie_title %>)</a>
       <div>Similarity score: <%= similarCharacter.score %></div>
-      <div><%= similarCharacter.character_journey %></div>
+      <div>Character journey: <%= similarCharacter.character_journey %></div>
+      <div>Movie synopsis: <%= similarCharacter.movie_synopsis %></div>
       <br />
     </div>
   <% }) %>

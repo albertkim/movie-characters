@@ -41,7 +41,7 @@ module.exports = {
     const characters = await knex('characters')
       .whereIn('character_id', characterIds)
       .leftJoin('movies', 'characters.movie_id', 'movies.movie_id')
-      .select('characters.*', 'movies.movie_id', 'movies.movie_title')
+      .select('characters.*', 'movies.movie_id', 'movies.movie_title', 'movies.movie_synopsis')
 
     const finalResults = results
       .filter((result) => result.item.metadata.character_id !== characterId)
@@ -53,6 +53,7 @@ module.exports = {
           movie_id: matchingCharacter.movie_id,
           movie_title: matchingCharacter.movie_title,
           character_journey: matchingCharacter.character_journey,
+          movie_synopsis: matchingCharacter.movie_synopsis,
           score: result.score
         }
       })
