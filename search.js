@@ -1,10 +1,12 @@
 (async () => {
 
   const knex = require('./knexfile')
-  const { loadVSSExtention } = require('./load-vss-extension')
-
   // Load VSS extension
+  const { loadVSSExtention } = require('./load-vss-extension')
   await loadVSSExtention()
+
+  // Migrations
+  await knex.migrate.latest()
 
   const vssVersion = await knex.raw(`
     select vss_version();
@@ -21,19 +23,17 @@
     process.exit(1)
   }
 
-  const vector = character.character_journey_vector
-
   // Search the database for the 10 closest characters by vector distance using sqlite-vss
   const results = await knex.raw(`
     SELECT
-      id,
-      character_name,
-      character_journey_vector,
-      vss(character_journey_vector, x'${vector.toString('hex')}') AS distance
-    FROM characters
-    WHERE id != ${characterId}
+      c.id,
+      c.character_name,
+      c.character_journey,
+      vss_search(CAST(c.character_journey_vector AS BLOB), (SELECT character_journey_vector FROM characters WHERE id = 80)) AS distance
+    FROM characters c
+    WHERE c.id != 80
     ORDER BY distance ASC
-    LIMIT 10
+    LIMIT 10;
   `)
 
   console.log(results)

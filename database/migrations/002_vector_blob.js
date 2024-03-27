@@ -9,3 +9,7 @@ module.exports.up = async (knex) => {
   `)
 
 }
+
+module.exports.down = async () => {
+
+}
