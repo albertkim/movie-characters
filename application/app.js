@@ -16,9 +16,9 @@ app.get('/', async (req, res) => {
 })
 
 app.get('/movies/:id', async (req, res) => {
-  const id = parseInt(req.params.id)
-  const movie = await knex('movies').select('*').where({ movie_id: id }).first()
-  const characters = await knex('characters').select('*').where({ character_id: id })
+  const movieId = parseInt(req.params.id)
+  const movie = await knex('movies').select('*').where({ movie_id: movieId }).first()
+  const characters = await knex('characters').select('*').where({ movie_id: movieId })
   res.render('characters', {
     movie: movie,
     characters: characters

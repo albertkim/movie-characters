@@ -14,9 +14,8 @@ module.exports = {
 
     const character = await knex('characters').where('character_id', characterId).first()
 
-    if (!character) {
-      console.log('Character not found')
-      process.exit(1)
+    if (!character || !character.character_journey_vector) {
+      return []
     }
 
     const buffer = new Buffer.from(character.character_journey_vector)

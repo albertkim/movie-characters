@@ -18,7 +18,7 @@ It then allows for users to select their favorite characters from any of these m
 3. `node analyze-movies.js`
 4. `node analyze-characters.js`
 5. `node analyze-vectors.js`
-6. `node application/app.js` (to run simple, interactive web application)
+6. `yarn start` (to run simple, interactive web application - defaults to http://localhost:3000)
 
 # Technologies used
 

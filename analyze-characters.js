@@ -18,7 +18,7 @@
 
     const charactersResponse = await openai.getJSONResponse(`
       <Instruction>
-        Identify up to 3 significant characters in the film "${movie.movie_title}". For each character, describe their character journey and development using simple, abstract, universal concepts in 2-3 complete sentences without referencing the setting, genre, or specific names of anything. Be specific with the conflicts they experience using general concepts. Spoilers are okay.
+        Identify up to 5 characters with significant screentime in the film "${movie.movie_title}". For each character, describe their character journey and development using simple, abstract, universal concepts in 2-3 complete sentences without referencing the setting, genre, or specific names of anything. Be specific with the conflicts they experience using general concepts. Spoilers are okay.
 
         Example of journeys:
 
