@@ -1,5 +1,4 @@
 const knex = require('knex')
-require('./load-vss-extension')
 
 const databasePath = './database/database.db'
 

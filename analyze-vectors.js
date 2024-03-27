@@ -1,15 +1,19 @@
 (async () => {
 
+  const path = require('path')
   const openai = require('./openai')
-
   const knex = require('./knexfile')
-
-  // Load VSS extension
-  const { loadVSSExtention } = require('./load-vss-extension')
-  await loadVSSExtention()
+  const { LocalIndex } = require('vectra')
 
   // Migrations
   await knex.migrate.latest()
+
+  // Initialize Vectra local vector database
+  const vectraIndex = new LocalIndex(path.join(__dirname, 'database', 'vectra'))
+
+  if (!await vectraIndex.isIndexCreated()) {
+    await vectraIndex.createIndex()
+  }
 
   const characters = await knex('characters').select()
 
@@ -30,10 +34,12 @@
         character_journey_vector: buffer
       }).where('id', character.id)
 
-      // Also store them in the vss virtual table for searching
-      await knex('vss_characters_2').insert({
-        rowid: character.id,
-        character_journey_vector: embeddings
+      // Also store them in the vector database for searching
+      await vectraIndex.insertItem({
+        vector: embeddings,
+        metadata: {
+          character_id: character.id
+        }
       })
 
       console.log(`Inserted vector for ${character.id}:`, character.character_name)

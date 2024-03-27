@@ -1,19 +1,17 @@
 (async () => {
 
+  const path = require('path')
   const knex = require('./knexfile')
-  
-  // Load VSS extension
-  const { loadVSSExtention } = require('./load-vss-extension')
-  await loadVSSExtention()
+  const { LocalIndex } = require('vectra')
 
   // Migrations
   await knex.migrate.latest()
 
-  const vssVersion = await knex.raw(`
-    select vss_version();
-  `)
+  // Initialize Vectra local vector database
+  const vectraIndex = new LocalIndex(path.join(__dirname, 'database', 'vectra'))
 
-  console.log(vssVersion)
+  // How many similar characters to retrieve
+  const count = 10
 
   const characterId = 80 // Darth Vader
 
@@ -28,21 +26,35 @@
   const vector = new Float32Array(buffer.buffer)
   const array = Array.from(vector)
 
-  console.log(array)
+  // Search the database for the n closest characters by vector distance. Vectra returns an array of objects that look like this:
+  /**
+   * {
+      item: {
+        id: '8858db0d-f9de-43a7-a28e-3cbc61e42bc1',
+        metadata: object (passed in),
+        vector: array (embeddings),
+        norm: 1.0000000611974589
+      },
+      score: number
+    }
+   */
+  const results = await vectraIndex.queryItems(array, count)
 
-  // Search the database for the 10 closest characters by vector distance using sqlite-vss
-  // TODO: I CAN'T GET THIS TO WORK, TRYING EVERYTHING!
-  const results = await knex.raw(`
-    select rowid, distance
-    from vss_characters_2
-    where vss_search(
-      character_journey_vector,
-      ?
-    )
-    limit 10;
-  `, buffer)
+  const characterIds = results.map(result => result.item.metadata.character_id)
 
-  console.log(results)
+  const characters = await knex('characters').whereIn('id', characterIds)
+
+  const finalResults = results.map((result) => {
+    const matchingCharacter = characters.find(character => character.id === result.item.metadata.character_id)
+    return {
+      character_id: result.item.metadata.character_id,
+      character_name: matchingCharacter.character_name,
+      character_journey: matchingCharacter.character_journey,
+      score: result.score
+    }
+  })
+
+  console.log(finalResults)
 
   process.exit(0)
 
