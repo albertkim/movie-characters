@@ -5,7 +5,6 @@ module.exports = {
   getJSONResponse: async (prompt) => {
 
     const OpenAI = require('openai')
-    const chalk = require('chalk')
 
     const openai = new OpenAI(process.env.OPENAI_API_KEY)
 
@@ -33,7 +32,7 @@ module.exports = {
     const content = JSON.parse(response.choices[0].message.content)
 
     if (content.error) {
-      console.log(chalk.yellow(JSON.stringify(content, null, 2)))
+      console.log(JSON.stringify(content, null, 2))
       return null
     }
 
