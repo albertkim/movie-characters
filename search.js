@@ -1,6 +1,10 @@
 (async () => {
 
   const knex = require('./knexfile')
+  const { loadVSSExtention } = require('./load-vss-extension')
+
+  // Load VSS extension
+  await loadVSSExtention()
 
   const vssVersion = await knex.raw(`
     select vss_version();

@@ -1,22 +1,31 @@
-(async () => {
+module.exports = {
 
-  const sqlite3 = require('sqlite3').verbose()
+  loadVSSExtention: async function() {
 
-  (async () => {
-    // Dynamically import the sqlite-vss module
-    const sqlite_vss = await import('sqlite-vss')
-    
-    const db = new sqlite3.Database(':memory:')
-    db.loadExtension(sqlite_vss.getLoadablePath(), (err) => {
+    const knex = require('./knexfile')
+    const path = require('path')
+    const sqliteVSSVectorPath = path.join(__dirname, 'node_modules', 'sqlite-vss-darwin-arm64', 'lib', 'vector0')
+    const sqliteVSSPath = path.join(__dirname, 'node_modules', 'sqlite-vss-darwin-arm64', 'lib', 'vss0')
+
+    const knexConnection = await knex.client.acquireConnection()
+
+    knexConnection.loadExtension(sqliteVSSVectorPath, (err) => {
       if (err) {
-        console.error('Error loading VSS extension:', err)
+        console.error('Error loading vector0 extension:', err)
         return
       }
-      console.log('VSS extension loaded successfully.')
 
-      // Perform other database initializations here if necessary
-      db.close() // Close the database if you're done with setup
+      knexConnection.loadExtension(sqliteVSSPath, (err) => {
+        if (err) {
+          console.error('Error loading VSS extension:', err)
+        } else {
+          console.log('VSS extension loaded successfully.')
+        }
+      })
     })
-  })()
 
-})
+    knex.client.releaseConnection(knexConnection)
+
+  }
+
+}
