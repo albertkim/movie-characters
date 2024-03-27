@@ -1,9 +1,16 @@
 # Introduction
 
-This project uses a database of the top 100 movies from IMDB, analyzes characters specifically by:
+This project was built for me to learn the concepts of semantic search, embeddings, vectors, and vector databases. It uses a database of the top 100 movies from IMDB, and analyzes characters specifically by:
 
 - Type of movie (Blake Snyder's 10 types of stories: https://human.libretexts.org/Bookshelves/Theater_and_Film/Playwriting_(Garcia)/01%3A_Chapters/1.07%3A_Types_of_Story)
 - Character journeys
+
+Example of a character journey (Dorothy from The Wizard of Oz):
+```
+Dorothy starts as a lost and naive girl who dreams of a better life. Through her adventures, she learns the importance of friendship and courage, ultimately realizing that home is where the heart is.
+```
+
+Character journeys are intended to be high level, general, and abstract.
 
 It then allows for users to select their favorite characters from any of these movies, and find other movies with characters that go on similar journeys, with little to no regard for genre, setting, budget, or even language.
 
