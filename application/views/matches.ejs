@@ -17,8 +17,8 @@
     <div>
       <a href="/movies/<%= similarCharacter.movie_id %>"><%= similarCharacter.character_name %> (from <%= similarCharacter.movie_title %>)</a>
       <div>Similarity score: <%= similarCharacter.score %></div>
+      <div>Story type : <a href="https://human.libretexts.org/Bookshelves/Theater_and_Film/Playwriting_(Garcia)/01%3A_Chapters/1.07%3A_Types_of_Story"><%= similarCharacter.movie_story_type %></a></div>
       <div>Character journey: <%= similarCharacter.character_journey %></div>
-      <div>Movie synopsis: <%= similarCharacter.movie_synopsis %></div>
       <br />
     </div>
   <% }) %>
