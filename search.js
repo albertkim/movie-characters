@@ -35,7 +35,7 @@
         vector: array (embeddings),
         norm: 1.0000000611974589
       },
-      score: number
+      score: number (0 to 1, where 1 is the same as the query vector)
     }
    */
   const results = await vectraIndex.queryItems(array, count)
@@ -47,7 +47,6 @@
   const finalResults = results.map((result) => {
     const matchingCharacter = characters.find(character => character.id === result.item.metadata.character_id)
     return {
-      character_id: result.item.metadata.character_id,
       character_name: matchingCharacter.character_name,
       character_journey: matchingCharacter.character_journey,
       score: result.score

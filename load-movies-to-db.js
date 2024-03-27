@@ -25,6 +25,7 @@
   // Insert movie entries 1 at a time
   for (let i = 0; i < csvObject.length; i++) {
     await knex('movies').insert({
+      movie_type: 'movie',
       movie_title: csvObject[i].Name,
       movie_year: csvObject[i].Year
     })

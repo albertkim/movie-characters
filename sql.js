@@ -1,9 +1,22 @@
 (async () => {
 
-  const knex = require('./knexfile')
+  const oldKnex = require('./knexfile')
+
+  const newknex = require('knex')({
+    client: 'sqlite3',
+    connection: {
+      filename: './database/new-database.db'
+    },
+    migrations: {
+      directory: './database/migrations'
+    },
+    useNullAsDefault: true
+  })
+
+  await newknex.migrate.latest()
 
   await knex.raw(`
-    drop table vss_characters;
+  
   `)
 
   process.exit(0)

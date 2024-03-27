@@ -21,21 +21,21 @@ It then allows for users to select their favorite characters from any of these m
 
 # Technologies used
 
-Node.js
+### Node.js
 
-OpenAI ChatGPT
+### OpenAI
 
 OpenAI embeddings API
 https://platform.openai.com/docs/guides/embeddings/frequently-asked-questions
 
-SQLite
+### SQLite
 
 Only use for stories movies and characters
 
 I tried using the following vector database add-on, but I could not get it to work and the repo/README are too outdated
 https://github.com/asg017/sqlite-vss
 
-Vectra
+### Vectra
 
 Found this locally-run node/typecsript vector database project via Google and Hacker News. Works well with no hassle
 https://github.com/Stevenic/vectra
