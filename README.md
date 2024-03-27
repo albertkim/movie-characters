@@ -14,12 +14,15 @@ It then allows for users to select their favorite characters from any of these m
 
 # How to run
 
-1. Set up env file
-2. `node load-movies-to-db.js` (optional, if you are adding a new database to the local sqlite instance)
-3. `node analyze-movies.js` (optional, analyzes the synopsis and story type of movies)
-4. `node analyze-characters.js` (optional, analyzes key characters from movies and their character journeys)
-5. `node analyze-vectors.js` (optional, gets OpenAI embeddings for each character journey)
-6. `yarn start` (to run simple, interactive web application - go to http://localhost:3000 after running)
+This repository comes with a built-in SQLite database file (/database/database.db) and a vector database directory (/database/vectra) so you can skip straight to the last step. Will work on both Mac and Windows operating systems.
+
+1. `yarn install`
+2. Set up env file (optional, only need if running any of the following non-application scripts below)
+3. `node load-movies-to-db.js` (optional, if you are adding a new database to the local sqlite instance)
+4. `node analyze-movies.js` (optional, analyzes the synopsis and story type of movies)
+5. `node analyze-characters.js` (optional, analyzes key characters from movies and their character journeys)
+6. `node analyze-vectors.js` (optional, gets OpenAI embeddings for each character journey)
+7. `yarn start` (to run simple, interactive web application - go to http://localhost:3000 after running)
 
 # Technologies used
 
