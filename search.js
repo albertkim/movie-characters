@@ -25,15 +25,13 @@
 
   // Search the database for the 10 closest characters by vector distance using sqlite-vss
   const results = await knex.raw(`
-    SELECT
-      c.id,
-      c.character_name,
-      c.character_journey,
-      vss_search(CAST(c.character_journey_vector AS BLOB), (SELECT character_journey_vector FROM characters WHERE id = 80)) AS distance
-    FROM characters c
-    WHERE c.id != 80
-    ORDER BY distance ASC
-    LIMIT 10;
+    select rowid, distance
+    from vss_characters_2
+    where vss_search(
+      character_journey_vector,
+      (select character_journey_vector from characters where rowid = 80)
+    )
+    limit 10;
   `)
 
   console.log(results)
