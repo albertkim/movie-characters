@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movies/shows/anime</title>
+</head>
+
+<body>
+  <h1>Movie character recommender</h1>
+  <div>This application analyzes the character journeys of several of the top movies, tv shows, and anime, and uses a Vectra vector database + OpenAI embeddings to recommend characters with similar journeys. It is a fun way to find new pieces of media without relying on traditional search criteria such as genres or settings.</div>
+  <br />
+  <div>Step 1: Select a movie you enjoy</div>
+  <br />
+  <% movies.forEach(function(movie) { %>
+    <div>
+      <a href="/movies/<%= movie.movie_id %>"><%= movie.movie_title %></a>
+    </div>
+  <% }) %>
+</body>
+
+</html>

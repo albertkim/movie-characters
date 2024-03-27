@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movies/shows/anime</title>
+</head>
+
+<body>
+  <h1>Movie character recommender</h1>
+  <div>Here are some characters similar to <%= character.character_name %> you might enjoy</div>
+  <br />
+  <div><a href="/">Back to start</a></div>
+  <br />
+  <% similarCharacters.forEach(function(similarCharacter) { %>
+    <div>
+      <a href="/movies/<%= movie.movie_id %>"><%= similarCharacter.character_name %> (from <%= similarCharacter.movie_title %>)</a>
+      <div>Similarity score: <%= similarCharacter.score %></div>
+      <div><%= similarCharacter.character_journey %></div>
+      <br />
+    </div>
+  <% }) %>
+</body>
+
+</html>

@@ -11,7 +11,7 @@
     const movie = movies[i]
 
     // Can re-run if the script fails
-    const existingCharacters = await knex('characters').where('movie_id', movie.id).select()
+    const existingCharacters = await knex('characters').where('movie_id', movie.movie_id).select()
     if (existingCharacters.length > 0) {
       continue
     }
@@ -44,7 +44,7 @@
 
     await knex('characters').insert(charactersResponse.characters.map(character => {
       return {
-        movie_id: movie.id,
+        movie_id: movie.movie_id,
         character_name: character.character_name,
         character_journey: character.journey
       }

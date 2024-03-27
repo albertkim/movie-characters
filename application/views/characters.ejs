@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movies/shows/anime</title>
+</head>
+
+<body>
+  <h1>Movie character recommender</h1>
+  <div>Step 2: Select a character you like from <%= movie.movie_title %></div>
+  <br />
+  <% characters.forEach(function(character) { %>
+    <div>
+      <a href="/movies/<%= movie.movie_id %>/character/<%= character.character_id %>"><%= character.character_name %></a>
+      <div><%= character.character_journey %></div>
+      <br />
+    </div>
+  <% }) %>
+</body>
+
+</html>

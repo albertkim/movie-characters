@@ -1,22 +1,15 @@
 (async () => {
 
-  const oldKnex = require('./knexfile')
+  const knex = require('./knexfile')
 
-  const newknex = require('knex')({
-    client: 'sqlite3',
-    connection: {
-      filename: './database/new-database.db'
-    },
-    migrations: {
-      directory: './database/migrations'
-    },
-    useNullAsDefault: true
-  })
-
-  await newknex.migrate.latest()
+  await knex.migrate.latest()
 
   await knex.raw(`
-  
+    alter table movies rename column id to movie_id;
+  `)
+
+  await knex.raw(`
+    alter table characters rename column id to character_id;
   `)
 
   process.exit(0)

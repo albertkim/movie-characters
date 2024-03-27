@@ -61,7 +61,7 @@
     const storyType = typeOfStoryResponse.story_type
     const storyTypeExplanation = typeOfStoryResponse.explanation
 
-    await knex('movies').where('id', movie.id).update({
+    await knex('movies').where('movie_id', movie.movie_id).update({
       movie_story_type: storyType,
       movie_story_type_explanation: storyTypeExplanation
     })

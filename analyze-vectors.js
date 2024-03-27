@@ -21,7 +21,7 @@
 
     const character = characters[i]
 
-    if (character.character_journey) {
+    if (character.character_journey && !character.character_journey_vector) {
       const embeddings = await openai.getEmbeddings(character.character_journey)
 
       let vector = new Float32Array(embeddings)
@@ -32,17 +32,17 @@
       // Store embeddings in characters db for lookup reference
       await knex('characters').update({
         character_journey_vector: buffer
-      }).where('id', character.id)
+      }).where('character_id', character.character_id)
 
       // Also store them in the vector database for searching
       await vectraIndex.insertItem({
         vector: embeddings,
         metadata: {
-          character_id: character.id
+          character_id: character.character_id
         }
       })
 
-      console.log(`Inserted vector for ${character.id}:`, character.character_name)
+      console.log(`Inserted vector for ${character.character_id}:`, character.character_name)
     }
 
   }

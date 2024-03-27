@@ -2,7 +2,7 @@ module.exports.up = async (knex) => {
 
   await knex.raw(`
     CREATE TABLE movies (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      movie_id INTEGER PRIMARY KEY AUTOINCREMENT,
       movie_type TEXT,
       movie_title TEXT,
       movie_year INT,
@@ -14,7 +14,7 @@ module.exports.up = async (knex) => {
 
   await knex.raw(`
     CREATE TABLE characters (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      character_id INTEGER PRIMARY KEY AUTOINCREMENT,
       character_name TEXT NOT NULL,
       movie_id INT NOT NULL,
       character_journey TEXT,
